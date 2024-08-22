@@ -1,7 +1,4 @@
-let saldo = 8000;
-const elementoSaldo = document.querySelector('.saldo-valor .valor');
-elementoSaldo.textContent = saldo.toString();
-let transacaoFormulario = document.querySelector('.block-nova-transacao form');
+const transacaoFormulario = document.querySelector('.block-nova-transacao form');
 transacaoFormulario.addEventListener("submit", function (event) {
     event.preventDefault(); // Não ira recarregar a pagina 
     if (!transacaoFormulario.checkValidity()) {
@@ -14,10 +11,10 @@ transacaoFormulario.addEventListener("submit", function (event) {
     let tipoTransacao = inputTipoTransacao.value;
     let valor = inputValor.valueAsNumber;
     let data = new Date(inputData.value);
-    if (tipoTransacao == 'Depósito') {
+    if (tipoTransacao == TipoTransacao.DEPOSITO) {
         saldo += valor;
     }
-    else if (tipoTransacao == 'Transferência' || tipoTransacao == 'Pagamento de Boleto') {
+    else if (tipoTransacao == TipoTransacao.TRANSFERECIA || tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO) {
         saldo -= valor;
     }
     else {

@@ -1,11 +1,6 @@
 
-let saldo = 8000;
-const elementoSaldo = document.querySelector('.saldo-valor .valor') as HTMLElement;
+const transacaoFormulario = document.querySelector('.block-nova-transacao form') as HTMLFormElement
 
-elementoSaldo.textContent = saldo.toString()
-
-
-let transacaoFormulario = document.querySelector('.block-nova-transacao form') as HTMLFormElement
 transacaoFormulario.addEventListener("submit",function(event){
     event.preventDefault();// Não ira recarregar a pagina 
     if (!transacaoFormulario.checkValidity()) {
@@ -17,15 +12,15 @@ transacaoFormulario.addEventListener("submit",function(event){
     const inputValor = document.querySelector('#valor') as HTMLInputElement
     const inputData = document.querySelector('#data') as HTMLInputElement
 
-    let tipoTransacao: string = inputTipoTransacao.value
+    let tipoTransacao: TipoTransacao = inputTipoTransacao.value as TipoTransacao;
     let valor: number = inputValor.valueAsNumber
     let data: Date = new Date(inputData.value)
 
 
-    if(tipoTransacao == 'Depósito'){
+    if(tipoTransacao == TipoTransacao.DEPOSITO){
         saldo +=valor;
 
-    }else if(tipoTransacao == 'Transferência'|| tipoTransacao == 'Pagamento de Boleto'){
+    }else if(tipoTransacao == TipoTransacao.TRANSFERECIA|| tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO){
         saldo-=valor;
 
     }else{
@@ -34,12 +29,8 @@ transacaoFormulario.addEventListener("submit",function(event){
     }
     elementoSaldo.textContent = saldo.toString();
   
-    type transacao = {
-        tipoTransacao: string,
-        valor: number,
-        data: Date
-    }
-    const novaTransacao: transacao= {
+    
+    const novaTransacao: Transacao= {
         tipoTransacao: tipoTransacao,
         valor: valor,
         data: data
